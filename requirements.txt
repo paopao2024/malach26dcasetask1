@@ -1,0 +1,12 @@
+av
+h5py
+librosa
+numpy
+scikit_learn
+tqdm
+wandb
+pandas
+notebook
+matplotlib~=3.7
+pytorch-lightning
+transformers
