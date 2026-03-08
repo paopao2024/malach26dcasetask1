@@ -221,7 +221,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Example of parser. ')
 
     # general
-    parser.add_argument('--experiment_name', type=str, default="DCASE25")
+    parser.add_argument('--experiment_name', type=str, default="MALACH26")
     parser.add_argument('--num_workers', type=int, default=12)  # number of workers for dataloaders
     parser.add_argument('--SEED', type=int, default=None)
     parser.add_argument('--make_deterministic', default=False, action='store_true')

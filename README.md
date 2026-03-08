@@ -15,12 +15,12 @@ We recommend to use [Miniconda](https://docs.conda.io/en/latest/miniconda.html) 
 
 Start by creating a conda environment:
 ```
-conda create -n malach25 python=3.11
+conda create -n malach26 python=3.11
 ```
 
 Activate your environment:
 ```
-conda activate malach25
+conda activate malach26
 ```
 
 Install the pytorch version that suits your system. For example:
