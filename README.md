@@ -1,4 +1,4 @@
-# Pipeline for MALACH 2025
+# Pipeline for MALACH 2026
 
 This repository provides students of the course **Machine Learning and Audio: a challenge** with a simple ML4Audio
 pipeline. For demonstration purposes the project uses a small example dataset consisting of 200 wav files in the folder 
