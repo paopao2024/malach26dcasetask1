@@ -1,0 +1,36 @@
+# W&B Bayesian sweep for PaSST fine-tuning.
+# Identical ranges/structure to sweep_beats.yaml, applied to finetune_passt.py.
+#
+# Param names are HYPHENATED to match the script's CLI flags (--learning-rate
+# etc.), so ${args} expands to flags the script accepts.
+#
+# Launch (ONLY after the PaSST smoke test passes):
+#   wandb sweep sweep_passt.yaml        # prints a sweep ID
+#   wandb agent <sweep-id> --count 6    # run on each free server
+program: finetune_passt.py
+project: dcase2026-task1
+method: bayes
+metric:
+  name: val/hf_correct
+  goal: maximize
+parameters:
+  learning-rate:
+    values: [5e-6, 1e-5, 2e-5, 3e-5, 4e-5, 5e-5]
+  weight-decay:
+    values: [0.0, 0.01, 0.05]
+  warmup-epochs:
+    values: [0.1, 0.5, 1]
+  lr-decay-start-epoch:
+    values: [1, 3, 5, 7]
+  min-learning-rate:
+    values: [0, 1e-6]
+  max-epochs:
+    values: [10, 15, 20]
+command:
+  - ${env}
+  - ${interpreter}
+  - ${program}
+  - --batch-size=4
+  - --wandb-project=dcase2026-task1
+  - --wandb-mode=online
+  - ${args}
