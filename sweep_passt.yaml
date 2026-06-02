@@ -30,7 +30,7 @@ command:
   - ${env}
   - ${interpreter}
   - ${program}
-  - --batch-size=4
+  - --batch-size=1            # forced: PaSST full FT OOMs above batch 1 on 11-12GB cards
   - --wandb-project=dcase2026-task1
   - --wandb-mode=online
   - ${args}
