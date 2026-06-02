@@ -254,13 +254,11 @@ class BEATsClassifier(pl.LightningModule):
         hp_p, hr_p, hf_p = compute_hf_professors(logits_np, labels_np)
         acc = float((logits_np.argmax(-1) == labels_np).mean())
 
-        self.log("val/hf_correct", hf_c, prog_bar=True)
-        self.log("val/hf_correct_precision", hp_c)
-        self.log("val/hf_correct_recall", hr_c)
-        self.log("val/hf_professors", hf_p, prog_bar=True)
-        self.log("val/hf_professors_precision", hp_p)
-        self.log("val/hf_professors_recall", hr_p)
-        self.log("val/accuracy", acc)
+        # Log ONLY the two F-scores — no _precision/_recall sub-metrics, so
+        # val/hf_correct doesn't share a prefix and logs cleanly to W&B
+        # (required for the Bayesian sweep, which optimizes on val/hf_correct).
+        self.log("val/hf_correct", float(hf_c), on_step=False, on_epoch=True, prog_bar=True)
+        self.log("val/hf_professors", float(hf_p), on_step=False, on_epoch=True)
 
         self._val_logits.clear()
         self._val_labels.clear()
@@ -284,13 +282,9 @@ class BEATsClassifier(pl.LightningModule):
         hp_p, hr_p, hf_p = compute_hf_professors(logits_np, labels_np)
         acc = float((logits_np.argmax(-1) == labels_np).mean())
 
-        self.log("test/hf_correct", hf_c)
-        self.log("test/hf_correct_precision", hp_c)
-        self.log("test/hf_correct_recall", hr_c)
-        self.log("test/hf_professors", hf_p)
-        self.log("test/hf_professors_precision", hp_p)
-        self.log("test/hf_professors_recall", hr_p)
-        self.log("test/accuracy", acc)
+        self.log("test/hf_correct", float(hf_c))
+        self.log("test/hf_professors", float(hf_p))
+        self.log("test/accuracy", float(acc))
 
         print()
         print("=" * 62)
